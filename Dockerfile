@@ -14,10 +14,10 @@ RUN sudo apt-get -y install libblas-dev
 RUN sudo apt-get -y install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler libatlas-base-dev libblas-dev libgflags-dev libgoogle-glog-dev liblmdb-dev libboost-all-dev
 
 # Install ROCm-Device-Libs
-RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc1/rocm-device-libs-0.0.1401-Linux.deb && sudo dpkg -i rocm-device-libs-0.0.1401-Linux.deb
+RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc2/rocm-device-libs-0.0.1402-Linux.deb && sudo dpkg -i rocm-device-libs-0.0.1402-Linux.deb
 
 # Install HCC
-RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc1/hcc_lc-1.0.16443-Linux.deb && sudo dpkg -i hcc_lc-1.0.16443-Linux.deb
+RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc2/hcc_lc-1.0.16444-Linux.deb && sudo dpkg -i hcc_lc-1.0.16444-Linux.deb
 
 # Build developer-preview HIP from source and install it
 RUN git clone -b developer-preview https://github.com/GPUOpen-ProfessionalCompute-Tools/HIP.git \
