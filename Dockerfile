@@ -30,3 +30,14 @@ RUN git clone https://bitbucket.org/multicoreware/hcblas.git \
 #    && cd hipcaffe && sed -i 's/USE_OPENCV := 0/USE_OPENCV := 1/' Makefile.config \
 #    && sudo ln /dev/null /dev/raw1394 \
 #    && make -j$(nproc)
+
+# Get CIFAR10
+#RUN cd ~/hipcaffe && ./data/cifar10/get_cifar10.sh && ./examples/cifar10/create_cifar10.sh
+
+# Run CIFAR10
+#RUN cd ~/hipcaffe && build/tools/caffe train --solver=examples/cifar10/cifar10_quick_solver.prototxt
+
+# Run convent benchmark
+#RUN git clone https://github.com/soumith/convnet-benchmarks.git \
+#    && cd hipcaffe && build/tools/caffe time --model=../convnet-benchmarks/caffe/imagenet_winners/alexnet.prototxt --iterations 2  --gpu 0
+
