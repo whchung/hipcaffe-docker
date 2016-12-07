@@ -25,9 +25,8 @@ RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc
 # Install prerequisites for OpenCL from binary
 RUN sudo apt-get -y install unzip
 
-# Install OpenCL
-RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/OpenCL_Linux_x86_64_Release_1346668_artifacts.zip \
-    && unzip ~/OpenCL_Linux_x86_64_Release_1346668_artifacts.zip
+# Download OpenCL
+RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/OpenCL_Linux_x86_64_Release_1346668_artifacts.zip
 
 # Build amd-develop HIP from source and install it
 RUN git clone -b sonoma-v1 https://github.com/whchung/HIP.git \
@@ -61,6 +60,12 @@ RUN git clone -b sonoma-v1 https://github.com/whchung/hcrng.git \
 
 # Get CIFAR10
 #RUN cd ~/hipcaffe && ./data/cifar10/get_cifar10.sh && ./examples/cifar10/create_cifar10.sh
+
+# Extract OpenCL
+#RUN unzip OpenCL_Linux_x86_64_Release_1346668_artifacts.zip
+
+# Setup environment variables
+#RUN export AOC_PATH=~/opencl/bin/x86_64/aoc2 && export LD_LIBRARY_PATH=~/opencl/lib/x86_64
 
 # Run CIFAR10
 # cd ~/hipcaffe && build/tools/caffe train --solver=examples/cifar10/cifar10_quick_solver.prototxt
