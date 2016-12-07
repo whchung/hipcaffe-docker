@@ -36,7 +36,7 @@ RUN git clone -b sonoma-v1 https://bitbucket.org/multicoreware/hcblas.git \
     && sudo dpkg -i build/hcblas-master-*.deb
 
 # Build HIPRNG from source and install it
-RUN git clone https://bitbucket.org/multicoreware/hcrng.git \
+RUN git clone -b sonoma-v1 https://github.com/whchung/hcrng.git \
     && cd ~/hcblas && sh ./build.sh \
     && sudo dpkg -i build/hcblas-master-*.deb
 
