@@ -1,11 +1,14 @@
-FROM ubuntu:14.04
+FROM rocm/rocm-terminal:1.3.0
 MAINTAINER Wen-Heng (Jack) Chung <whchung@gmail.com>
 
 # Update apt cache
-RUN sudo apt-get update && sudo apt-get -y install git
+RUN sudo apt-get update
 
 # Install g++-multilib
 RUN sudo apt-get -y install g++-multilib
+
+# Install misc dev packages
+RUN sudo apt-get -y install unzip git cmake
 
 # Install prerequisites for HIPBLAS from binary
 RUN sudo apt-get -y install libblas-dev
@@ -13,20 +16,14 @@ RUN sudo apt-get -y install libblas-dev
 # Install prerequisites for HICAFFE from binary
 RUN sudo apt-get -y install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler libatlas-base-dev libblas-dev libgflags-dev libgoogle-glog-dev liblmdb-dev libboost-all-dev
 
-# Install ROCm-Device-Libs
-RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/rocm-device-libs-0.0.1401-Linux.deb && sudo dpkg -i rocm-device-libs-0.0.1401-Linux.deb
-
 # Install prerequisites for HCC from binary
 RUN sudo apt-get -y install libc++1 libc++-dev libc++abi1 libc++abi-dev elfutils
 
+# Install ROCm-Device-Libs
+RUN cd ~ && sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/rocm-device-libs-0.0.1401-Linux.deb && sudo dpkg -i ~/rocm-device-libs-0.0.1401-Linux.deb
+
 # Install HCC
-RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/hcc_lc-1.0.16490-Linux.deb && sudo dpkg -i hcc_lc-1.0.16490-Linux.deb
-
-# Update apt cache
-RUN sudo apt-get update
-
-# Install misc dev packages
-RUN sudo apt-get -y install unzip git cmake
+RUN cd ~ && sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/hcc_lc-1.0.16490-Linux.deb && sudo dpkg -i ~/hcc_lc-1.0.16490-Linux.deb
 
 # Download OpenCL
 RUN cd ~ && sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/OpenCL_Linux_x86_64_Release_1346668_artifacts.zip \
