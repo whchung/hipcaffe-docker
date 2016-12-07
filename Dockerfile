@@ -16,6 +16,9 @@ RUN sudo apt-get -y install libprotobuf-dev libleveldb-dev libsnappy-dev libopen
 # Install ROCm-Device-Libs
 RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/rocm-device-libs-0.0.1401-Linux.deb && sudo dpkg -i rocm-device-libs-0.0.1401-Linux.deb
 
+# Install prerequisites for HCC from binary
+RUN sudo apt-get -y install libc++1 libc++-dev libc++abi1 libc++abi-dev
+
 # Install HCC
 RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/hcc_lc-1.0.16490-Linux.deb && sudo dpkg -i hcc_lc-1.0.16490-Linux.deb
 
