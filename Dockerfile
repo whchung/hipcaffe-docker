@@ -28,22 +28,28 @@ RUN sudo apt-get -y install unzip
 # Download OpenCL
 RUN sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/OpenCL_Linux_x86_64_Release_1346668_artifacts.zip
 
-# Build amd-develop HIP from source and install it
-RUN git clone -b sonoma-v1 https://github.com/whchung/HIP.git \
-    && cd ~/HIP && mkdir build && cd build \
-    && cmake .. \
-    && make -j$(nproc) \
-    && sudo make install
+# Download HIP from source
+RUN git clone -b sonoma-v1 https://github.com/whchung/HIP.git 
 
 # Build HIPBLAS from source and install it
-RUN git clone -b sonoma-v1 https://bitbucket.org/multicoreware/hcblas.git \
-    && cd ~/hcblas && sh ./build.sh \
-    && sudo dpkg -i build/hcblas-master-*.deb
+RUN git clone -b sonoma-v1 https://bitbucket.org/multicoreware/hcblas.git 
 
 # Build HIPRNG from source and install it
-RUN git clone -b sonoma-v1 https://github.com/whchung/hcrng.git \
-    && cd ~/hcblas && sh ./build.sh \
-    && sudo dpkg -i build/hcblas-master-*.deb
+RUN git clone -b sonoma-v1 https://github.com/whchung/hcrng.git
+
+# Build HIP
+# RUN cd ~/HIP && mkdir build && cd build \
+#    && cmake .. \
+#    && make -j$(nproc) \
+#    && sudo make install
+
+# Build HIPBLAS
+# RUN cd ~/hcblas && sh ./build.sh \
+#    && sudo dpkg -i build/hcblas-master-*.deb
+
+# Build HIPRNG
+# RUN cd ~/hcblas && sh ./build.sh \
+#    && sudo dpkg -i build/hcblas-master-*.deb
 
 # Build MIOpen from source and install it
 #RUN git clone -b sonoma-v1 https://github.com/AMDComputeLibraries/MLOpen.git \
