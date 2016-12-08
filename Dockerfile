@@ -65,7 +65,7 @@ RUN cd ~/hcblas && sh ./build.sh \
    && sudo dpkg -i build/hcblas-master-*.deb
 
 # Build MIOpen from source and install it
-#RUN git clone -b sonoma-v1 https://github.com/AMDComputeLibraries/MLOpen.git -C ~ \
+#RUN git clone -b sonoma-v1 https://github.com/whchung/MLOpen.git -C ~ \
 #    && cd ~/MLOpen && mkdir build && cd build \
 #    && cmake -DMLOPEN_BACKEND=HIP .. \
 #    && make -j$(nproc) \
