@@ -4,8 +4,8 @@ MAINTAINER Wen-Heng (Jack) Chung <whchung@gmail.com>
 # Update apt cache
 RUN sudo apt-get update
 
-# Install g++-multilib
-RUN sudo apt-get -y install g++-multilib
+# Install g++-4.8
+RUN sudo apt-get -y install g++-4.8 g++-4.8-multilib gcc-4.8 lib32stdc++-4.8-dev libx32stdc++-4.8-dev lib32gcc-4.8-dev libx32gcc-4.8-dev lib32asan0 libx32asan0 cpp-4.8 libcloog-isl4
 
 # Install misc dev packages
 RUN sudo apt-get -y install unzip git cmake
@@ -19,14 +19,20 @@ RUN sudo apt-get -y install libprotobuf-dev libleveldb-dev libsnappy-dev libopen
 # Install prerequisites for HCC from binary
 RUN sudo apt-get -y install libc++1 libc++-dev libc++abi1 libc++abi-dev elfutils
 
+# Install wget
+RUN sudo apt-get -y install wget
+
+# Install vim and other goodies
+RUN sudo apt-get -y install vim tig tmux
+
 # Install ROCm-Device-Libs
-RUN cd ~ && sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/rocm-device-libs-0.0.1401-Linux.deb && sudo dpkg -i ~/rocm-device-libs-0.0.1401-Linux.deb
+RUN cd ~ && wget http://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/rocm-device-libs-0.0.1401-Linux.deb && sudo dpkg -i ~/rocm-device-libs-0.0.1401-Linux.deb
 
 # Install HCC
-RUN cd ~ && sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/hcc_lc-1.0.16490-Linux.deb && sudo dpkg -i ~/hcc_lc-1.0.16490-Linux.deb
+RUN cd ~ && wget http://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/hcc_lc-1.0.16490-Linux.deb && sudo dpkg -i ~/hcc_lc-1.0.16490-Linux.deb
 
 # Download OpenCL
-RUN cd ~ && sudo curl -LO https://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/OpenCL_Linux_x86_64_Release_1346668_artifacts.zip \
+RUN cd ~ && wget http://github.com/RadeonOpenCompute/hcc/releases/download/roc-1.4.0-rc3/OpenCL_Linux_x86_64_Release_1346668_artifacts.zip \
     && unzip ~/OpenCL_Linux_x86_64_Release_1346668_artifacts.zip
 
 # Download HIP from source
@@ -36,7 +42,13 @@ RUN cd ~ && git clone -b sonoma-v1 https://github.com/whchung/HIP.git
 RUN cd ~ && git clone -b sonoma-v1 https://bitbucket.org/multicoreware/hcblas.git 
 
 # Build HIPRNG from source and install it
-RUN cd ~ git clone -b sonoma-v1 https://github.com/whchung/hcrng.git 
+RUN cd ~ && git clone -b sonoma-v1 https://github.com/whchung/hcrng.git 
+
+# Download patch for libc++
+RUN cd ~ && git clone -b sonoma-v1 https://github.com/whchung/misc.git
+
+# Patch libc++
+RUN sudo cp ~/misc/string /usr/include/c++/v1/
 
 # Build HIP
 RUN cd ~/HIP && mkdir build && cd build \
